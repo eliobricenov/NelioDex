@@ -1,10 +1,12 @@
 import React from 'react';
 
-import { Container, Header, Title, Content, ActionSheet, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Subtitle } from 'native-base';
+import { Container, Grid, Col, Row, Header, Title, List, ListItem, Thumbnail, Content, ActionSheet, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Subtitle } from 'native-base';
+import PokedexList from '../../components/PokedexList/PokedexList'
 
-const BUTTONS = ["Option 0", "Option 1", "Option 2", "Delete", "Cancel"];
-const DESTRUCTIVE_INDEX = 3;
-const CANCEL_INDEX = 4;
+const entries = [
+  { name: 'Pikachu', imageUrl: 'http://pokeapi.co/media/sprites/pokemon/25.png' },
+  { name: 'Pikachu', imageUrl: 'http://pokeapi.co/media/sprites/pokemon/25.png' }
+]
 
 export default class HomeScreen extends React.Component {
   render() {
@@ -22,7 +24,9 @@ export default class HomeScreen extends React.Component {
             <Title>NelioDex</Title>
           </Body>
         </Header>
-        <Content />
+        <Content padder>
+          <PokedexList entries={entries} />
+        </Content>
       </Container>
     );
   }
