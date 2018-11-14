@@ -1,5 +1,8 @@
 {
   "expo": {
+    "androidStatusBar": {
+      "backgroundColor": "#000000"
+    },
     "name": "NelioDex",
     "description": "This project is really great.",
     "slug": "NelioDex",

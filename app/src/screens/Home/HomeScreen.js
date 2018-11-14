@@ -1,26 +1,57 @@
 import React from 'react';
 
-import { Container, Grid, Col, Row, Header, Title, List, ListItem, Thumbnail, Content, ActionSheet, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Subtitle } from 'native-base';
+import { Container, Grid, Col, Row, Header, Title, Spinner, List, ListItem, Thumbnail, Content, ActionSheet, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Subtitle } from 'native-base';
+
 import PokedexList from '../../components/PokedexList/PokedexList'
 import PokedexListService from "../../services/PokedexList/PokedexListService";
-
+import PokedexActionSheet from "../../components/PokedexActionSheet/PokedexActionSheet";
+import { extractTypesName, extracTypesUrl } from '../../util/PokedexUtil/PokedexUtil'
 
 export default class HomeScreen extends React.Component {
   constructor() {
     super();
     this._pokedexListService = new PokedexListService();
     this.state = {
-      entries: []
+      entries: [],
+      types: [],
+      loading: true
     }
   }
 
   async componentWillMount() {
     const entries = await this._pokedexListService.getAllPokemons();
+    const types = await this._pokedexListService.getAllTypes();
     this.setState({
-      entries
+      entries,
+      types,
+      loading: false
     });
+    console.log('finished loading');
   }
+
+  async _onActionSelected(option) {
+    if (option) {
+      this.setState({loading: true});
+      const urlArray = extracTypesUrl(this.state.types);
+      const data = await this._pokedexListService.getPokemonsFromType(urlArray[option]);
+      this.setState({entries: data})
+      this.setState({loading: false});
+    }
+  }
+
   render() {
+    if (this.state.loading) {
+      return (
+        <Content contentContainerStyle={{ flex: 1 }} style={{ padding: 10 }}>
+          <Grid style={{ alignItems: 'center' }}>
+            <Col>
+              <Spinner color='red' />
+            </Col>
+          </Grid>
+        </Content>
+      );
+    }
+
     return (
       <Container>
         <Header
@@ -34,19 +65,11 @@ export default class HomeScreen extends React.Component {
           <Grid>
             <Row style={{ backgroundColor: 'blue' }}>
               <Col style={{ backgroundColor: 'green' }} >
-                <Button transparent style={{ alignItems: "center" }}>
-                  <Icon name='menu' />
-                </Button>
-              </Col>
-              <Col style={{ backgroundColor: 'pink' }}>
-                <Button transparent style={{ alignItems: "center" }}>
-                  <Icon name='menu' />
-                </Button>
-              </Col>
-              <Col style={{ backgroundColor: 'orange' }}>
-                <Button transparent style={{ alignItems: "center" }}>
-                  <Icon name='menu' />
-                </Button>
+                <PokedexActionSheet
+                  title="Select a pokemon type"
+                  options={extractTypesName(this.state.types)}
+                  onActionSelected={(option) => this._onActionSelected(option)}
+                />
               </Col>
             </Row>
             <Col>

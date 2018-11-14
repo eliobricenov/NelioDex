@@ -39,7 +39,7 @@ export default class HomeScreen extends React.Component {
     prepareEntries() {
         let entries = this.props.entries || [];
         return entries.map(entry => {
-            return <PokedexEntry key={entry.id} name={entry.name} imageUrl={entry.imageUrl} />
+            return <PokedexEntry name={entry.name} imageUrl={entry.imageUrl} />
         })
     }
 }
