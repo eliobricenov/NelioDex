@@ -33,6 +33,7 @@ export default class PokedexListService {
             console.log(error);
             const result = await axios.get('https://pokeapi.co/api/v2/type');
             const data = result.data.results;
+            data.unshift({name: 'All types', url: ''});
             try {
                 await putInStorage(data, 'ALL_POKEMON_TYPES');
             } catch {

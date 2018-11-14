@@ -31,14 +31,20 @@ export default class HomeScreen extends React.Component {
       loading: false
     });
     console.log('finished loading');
+    console.log(types);
   }
 
   async _onActionSelected(option) {
-    if (option) {
+    if (option >= 0) {
       this.setState({ loading: true });
-      const urlArray = extracTypesUrl(this.state.types);
-      const data = await this._pokedexListService.getPokemonsFromType(urlArray[option]);
-      this.setState({ entries: data })
+      if (option == 0) {
+        const data = await this._pokedexListService.getAllPokemons();
+        this.setState({ entries: data })
+      } else {
+        const urlArray = extracTypesUrl(this.state.types);
+        const data = await this._pokedexListService.getPokemonsFromType(urlArray[option]);
+        this.setState({ entries: data })
+      }
       this.setState({ loading: false });
     }
   }
@@ -77,7 +83,7 @@ export default class HomeScreen extends React.Component {
               </Col>
             </Row>
             <Col>
-              <PokedexList entries={this.state.entries} navigation={this.props.navigation}/>
+              <PokedexList entries={this.state.entries} navigation={this.props.navigation} />
             </Col>
           </Grid>
         </Content>

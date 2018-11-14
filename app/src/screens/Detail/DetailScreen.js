@@ -29,6 +29,7 @@ export default class HomeScreen extends React.Component {
       loading: false
     });
   }
+  
   render() {
 
     if (this.state.loading) {
