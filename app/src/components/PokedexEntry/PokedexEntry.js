@@ -12,6 +12,7 @@ export default class HomeScreen extends React.Component {
     _goToDetailScreen() {
         this.props.navigation.navigate('Details', {
             data: {
+                id: this.props.id,
                 name: this.props.name,
                 imageUrl: this.props.imageUrl,
                 url: this.props.url

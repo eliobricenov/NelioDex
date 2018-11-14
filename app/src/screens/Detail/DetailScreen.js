@@ -12,16 +12,19 @@ export default class HomeScreen extends React.Component {
     const { navigation } = this.props;
     const data = navigation.getParam('data', {});
     this.state = {
-      loading: false,
+      loading: true,
       data
     }
+    console.log(data);
   }
 
   static navigationOptions = {
     title: 'Details',
   };
 
-
+  async componentWillMount() {
+    this.setState({loading: false});
+  }
   render() {
 
     if (this.state.loading) {

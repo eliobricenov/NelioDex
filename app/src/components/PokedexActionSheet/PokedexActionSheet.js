@@ -15,6 +15,7 @@ export default class ActionSheetExample extends React.Component {
         return (
             <Button
                 small
+                block
                 onPress={() =>
                     ActionSheet.show(
                         {

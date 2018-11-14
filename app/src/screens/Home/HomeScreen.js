@@ -67,8 +67,8 @@ export default class HomeScreen extends React.Component {
         </Header>
         <Content padder>
           <Grid>
-            <Row style={{ backgroundColor: 'blue' }}>
-              <Col style={{ backgroundColor: 'green' }} >
+            <Row>
+              <Col>
                 <PokedexActionSheet
                   title="Select a pokemon type"
                   options={extractTypesName(this.state.types)}

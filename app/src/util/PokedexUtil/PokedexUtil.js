@@ -7,7 +7,8 @@ const extracTypesUrl = (data) => {
 }
 
 const extractPokemonsFromType = (data) => {
-    return data.map(element => element.pokemon);
+    const result = data.map(element => element.pokemon);
+    return prepareEntries(result);
 }
 
 const prepareEntries = (data) => {
@@ -15,6 +16,7 @@ const prepareEntries = (data) => {
         const array = entry.url.split('/');
         const id = array[array.length - 2];
         return {
+            id,
             name: entry.name,
             imageUrl: `http://pokeapi.co/media/sprites/pokemon/${id}.png`,
             url: entry.url
