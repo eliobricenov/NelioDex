@@ -25,6 +25,7 @@ export default class HomeScreen extends React.Component {
         return (
             <ListItem thumbnail
                 onPress={() => this._goToDetailScreen()}
+                key={this.props.id}
             >
                 <Left>
                     <Thumbnail source={{ uri: this.props.imageUrl }} />
