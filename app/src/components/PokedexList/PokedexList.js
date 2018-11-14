@@ -6,8 +6,8 @@ import PokedexEntry from '../PokedexEntry/PokedexEntry';
 
 export default class HomeScreen extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             isReady: false,
             entries: []
@@ -39,7 +39,12 @@ export default class HomeScreen extends React.Component {
     prepareEntries() {
         let entries = this.props.entries || [];
         return entries.map(entry => {
-            return <PokedexEntry name={entry.name} imageUrl={entry.imageUrl} url={entry.url} />
+            return <PokedexEntry
+                name={entry.name}
+                imageUrl={entry.imageUrl}
+                url={entry.url}
+                navigation={this.props.navigation}
+            />
         })
     }
 }

@@ -41,7 +41,7 @@ export default class App extends React.Component {
 
 const RootStack = createStackNavigator({
   Home: HomeScreen,
-  Detail: DetailScreen
+  Details: DetailScreen
 },
   {
     initialRouteName: 'Home',

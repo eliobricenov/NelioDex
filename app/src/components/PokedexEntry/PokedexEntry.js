@@ -4,9 +4,27 @@ import { ListItem, CardItem, Card, Left, Right, Thumbnail, Body, Text } from 'na
 
 
 export default class HomeScreen extends React.Component {
+
+    constructor() {
+        super();
+    }
+
+    _goToDetailScreen() {
+        this.props.navigation.navigate('Details', {
+            data: {
+                name: this.props.name,
+                imageUrl: this.props.imageUrl,
+                url: this.props.url
+            }
+        });
+    }
+
+
     render() {
         return (
-            <ListItem thumbnail>
+            <ListItem thumbnail
+                onPress={() => this._goToDetailScreen()}
+            >
                 <Left>
                     <Thumbnail source={{ uri: this.props.imageUrl }} />
                 </Left>

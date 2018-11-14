@@ -1,4 +1,3 @@
-
 const extractTypesName = (data) => {
     return data.map(type => type.name);
 }

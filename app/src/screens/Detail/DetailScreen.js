@@ -1,26 +1,29 @@
 import React from 'react';
 
-import { Container, Grid, Col, Row, Header, Title, Spinner, List, ListItem, Thumbnail, Content, ActionSheet, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Subtitle } from 'native-base';
+import { Container, Card, CardItem, Grid, Col, Row, Header, Title, Spinner, List, ListItem, Thumbnail, Content, ActionSheet, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Subtitle } from 'native-base';
 
-import PokedexList from '../../components/PokedexList/PokedexList'
 import PokedexListService from "../../services/PokedexList/PokedexListService";
-import PokedexActionSheet from "../../components/PokedexActionSheet/PokedexActionSheet";
 import { extractTypesName, extracTypesUrl } from '../../util/PokedexUtil/PokedexUtil'
 
 export default class HomeScreen extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this._pokedexListService = new PokedexListService();
+    const { navigation } = this.props;
+    const data = navigation.getParam('data', {});
     this.state = {
-      loading: false
+      loading: false,
+      data
     }
   }
 
-  async componentWillMount() {
-  }
+  static navigationOptions = {
+    title: 'Details',
+  };
 
 
   render() {
+
     if (this.state.loading) {
       return (
         <Container>
@@ -47,6 +50,13 @@ export default class HomeScreen extends React.Component {
         <Header
           style={{ backgroundColor: 'red' }}
         >
+          <Left>
+            <Button transparent
+              onPress={() => this.props.navigation.goBack()}
+            >
+              <Icon name='arrow-back' />
+            </Button>
+          </Left>
           <Body>
             <Title>NelioDex</Title>
           </Body>

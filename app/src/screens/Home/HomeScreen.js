@@ -8,8 +8,8 @@ import PokedexActionSheet from "../../components/PokedexActionSheet/PokedexActio
 import { extractTypesName, extracTypesUrl } from '../../util/PokedexUtil/PokedexUtil'
 
 export default class HomeScreen extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this._pokedexListService = new PokedexListService();
     this.state = {
       entries: [],
@@ -17,6 +17,10 @@ export default class HomeScreen extends React.Component {
       loading: true
     }
   }
+
+  static navigationOptions = {
+    title: 'Home',
+  };
 
   async componentWillMount() {
     const entries = await this._pokedexListService.getAllPokemons();
@@ -31,11 +35,11 @@ export default class HomeScreen extends React.Component {
 
   async _onActionSelected(option) {
     if (option) {
-      this.setState({loading: true});
+      this.setState({ loading: true });
       const urlArray = extracTypesUrl(this.state.types);
       const data = await this._pokedexListService.getPokemonsFromType(urlArray[option]);
-      this.setState({entries: data})
-      this.setState({loading: false});
+      this.setState({ entries: data })
+      this.setState({ loading: false });
     }
   }
 
@@ -73,7 +77,7 @@ export default class HomeScreen extends React.Component {
               </Col>
             </Row>
             <Col>
-              <PokedexList entries={this.state.entries} />
+              <PokedexList entries={this.state.entries} navigation={this.props.navigation}/>
             </Col>
           </Grid>
         </Content>
