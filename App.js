@@ -2,7 +2,8 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import { Container, Root, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Subtitle } from 'native-base';
 
-import HomeScreen from './app/src/screens/Home/HomeScreen'
+import HomeScreen from './app/src/screens/Home/HomeScreen';
+import DetailScreen from './app/src/screens/Detail/DetailScreen'
 
 export default class App extends React.Component {
 
@@ -39,7 +40,8 @@ export default class App extends React.Component {
 }
 
 const RootStack = createStackNavigator({
-  Home: HomeScreen
+  Home: HomeScreen,
+  Detail: DetailScreen
 },
   {
     initialRouteName: 'Home',

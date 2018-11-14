@@ -17,7 +17,8 @@ const prepareEntries = (data) => {
         const id = array[array.length - 2];
         return {
             name: entry.name,
-            imageUrl: `http://pokeapi.co/media/sprites/pokemon/${id}.png`
+            imageUrl: `http://pokeapi.co/media/sprites/pokemon/${id}.png`,
+            url: entry.url
         }
     });
 }

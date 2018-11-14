@@ -12,41 +12,33 @@ export default class HomeScreen extends React.Component {
     super();
     this._pokedexListService = new PokedexListService();
     this.state = {
-      loading: true
+      loading: false
     }
   }
 
   async componentWillMount() {
-    const entries = await this._pokedexListService.getAllPokemons();
-    const types = await this._pokedexListService.getAllTypes();
-    this.setState({
-      entries,
-      types,
-      loading: false
-    });
-    console.log('finished loading');
   }
 
-  async _onActionSelected(option) {
-    if (option) {
-      this.setState({loading: true});
-      const urlArray = extracTypesUrl(this.state.types);
-      const data = await this._pokedexListService.getPokemonsFromType(urlArray[option]);
-      this.setState({entries: data})
-      this.setState({loading: false});
-    }
-  }
 
   render() {
     if (this.state.loading) {
       return (
-        <Content contentContainerStyle={{ flex: 1 }} style={{ padding: 10 }}>
-          <Grid style={{ alignItems: 'center' }}>
-            <Col>
-              <Spinner color='red' />
-            </Col>
-          </Grid>
-        </Content>
+        <Container>
+          <Header
+            style={{ backgroundColor: 'red' }}
+          >
+            <Body>
+              <Title>NelioDex</Title>
+            </Body>
+          </Header>
+          <Content contentContainerStyle={{ flex: 1 }} style={{ padding: 10 }}>
+            <Grid style={{ alignItems: 'center' }}>
+              <Col>
+                <Spinner color='red' />
+              </Col>
+            </Grid>
+          </Content>
+        </Container>
       );
     }
 
@@ -60,20 +52,25 @@ export default class HomeScreen extends React.Component {
           </Body>
         </Header>
         <Content padder>
-          <Grid>
-            <Row style={{ backgroundColor: 'blue' }}>
-              <Col style={{ backgroundColor: 'green' }} >
-                <PokedexActionSheet
-                  title="Select a pokemon type"
-                  options={extractTypesName(this.state.types)}
-                  onActionSelected={(option) => this._onActionSelected(option)}
-                />
-              </Col>
-            </Row>
-            <Col>
-              <PokedexList entries={this.state.entries} />
-            </Col>
-          </Grid>
+          <Card>
+            <CardItem header bordered>
+              <Text>NativeBase</Text>
+            </CardItem>
+            <CardItem bordered>
+              <Body>
+                <Text>
+                  NativeBase is a free and open source framework that enable
+                  developers to build
+                  high-quality mobile apps using React Native iOS and Android
+                  apps
+                  with a fusion of ES6.
+                </Text>
+              </Body>
+            </CardItem>
+            <CardItem footer bordered>
+              <Text>GeekyAnts</Text>
+            </CardItem>
+          </Card>
         </Content>
       </Container>
     );
