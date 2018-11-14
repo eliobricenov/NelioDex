@@ -24,4 +24,12 @@ const prepareEntries = (data) => {
     });
 }
 
-export { extractTypesName, extracTypesUrl, extractPokemonsFromType, prepareEntries };
+const extractDetailInfo = (data) => {
+    const toCheck = data.flavor_text_entries;
+    const result = toCheck.find(element => {
+        return element.language.name === 'en';
+    })
+    return result.flavor_text;
+}
+
+export { extractTypesName, extracTypesUrl, extractPokemonsFromType, prepareEntries, extractDetailInfo };

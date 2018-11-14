@@ -13,9 +13,9 @@ export default class HomeScreen extends React.Component {
     const data = navigation.getParam('data', {});
     this.state = {
       loading: true,
-      data
+      data,
+      detailInfo: ''
     }
-    console.log(data);
   }
 
   static navigationOptions = {
@@ -23,7 +23,11 @@ export default class HomeScreen extends React.Component {
   };
 
   async componentWillMount() {
-    this.setState({loading: false});
+    const detailInfo = await this._pokedexListService.getDetailFromPokemon(this.state.data.id);
+    this.setState({
+      detailInfo,
+      loading: false
+    });
   }
   render() {
 
@@ -67,21 +71,17 @@ export default class HomeScreen extends React.Component {
         <Content padder>
           <Card>
             <CardItem header bordered>
-              <Text>NativeBase</Text>
+              <Left>
+                <Thumbnail source={{ uri: this.state.data.imageUrl }} />
+                <Text>{this.state.data.name}</Text>
+              </Left>              
             </CardItem>
             <CardItem bordered>
               <Body>
                 <Text>
-                  NativeBase is a free and open source framework that enable
-                  developers to build
-                  high-quality mobile apps using React Native iOS and Android
-                  apps
-                  with a fusion of ES6.
+                  {this.state.detailInfo}
                 </Text>
               </Body>
-            </CardItem>
-            <CardItem footer bordered>
-              <Text>GeekyAnts</Text>
             </CardItem>
           </Card>
         </Content>

@@ -12,7 +12,7 @@ export default class HomeScreen extends React.Component {
     _goToDetailScreen() {
         this.props.navigation.navigate('Details', {
             data: {
-                id: this.props.id,
+                id: this.props.pokeId,
                 name: this.props.name,
                 imageUrl: this.props.imageUrl,
                 url: this.props.url
@@ -25,7 +25,6 @@ export default class HomeScreen extends React.Component {
         return (
             <ListItem thumbnail
                 onPress={() => this._goToDetailScreen()}
-                key={this.props.id}
             >
                 <Left>
                     <Thumbnail source={{ uri: this.props.imageUrl }} />

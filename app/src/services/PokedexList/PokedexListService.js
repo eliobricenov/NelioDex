@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { prepareEntries, extractPokemonsFromType } from '../../util/PokedexUtil/PokedexUtil';
+import { prepareEntries, extractPokemonsFromType, extractDetailInfo } from '../../util/PokedexUtil/PokedexUtil';
 import { getFromStorage, putInStorage, deleteFromStorage } from '../../util/Storage/StorageUtil';
 
 export default class PokedexListService {
@@ -47,8 +47,9 @@ export default class PokedexListService {
         return extractPokemonsFromType(result.data.pokemon);
     }
 
-    async getDataFromPokemon(url) {
-        const result = await axios.get(url);
+    async getDetailFromPokemon(pokeId) {
+        const result = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${pokeId}/`);
+        return extractDetailInfo(result.data);
     }
 
 }
